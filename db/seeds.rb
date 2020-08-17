@@ -10,7 +10,22 @@ Destination.reset_pk_sequence
 ########### different ways to write your seeds ############
 #Users
 
-sam = User.create(user_name: "Samantha", cc_info: "123456")
+sam = User.create(name:, "Samantha", user_name: "sbalgobin", password: "password" cc_info: "123456")
+david = User.create(name:, "David", user_name: "dfelix", password: "password" cc_info: "1234567")
+josh = User.create(name:, "Joshua", user_name: "jitwaru", password: "password" cc_info: "12345678")
+
+#Destinations
+
+dubai = Destination.create(city: "Dubai", country: "United Arab Emirates", airport: "DXB - Dubai International Airport")
+hong_kong = Destination.create(city: "Hong Kong", country: "China", airport: "HKG - Hong Kong International Airport")
+bangkok = Destination.create(city: "Bangkok", country: "Thailand", airport: "BKK - Suvarnabhumi Airport")
+rome = Destination.create(city: "Rome", country: "Italy", airport: "FCO - Fiumicino International Airport")
+
+#Flights
+
+
+
+
 
 
 
