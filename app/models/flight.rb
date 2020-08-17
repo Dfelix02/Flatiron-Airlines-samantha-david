@@ -1,3 +1,3 @@
-class Model3 < ActiveRecord::Base
-  # add associatons!
+class Flight < ActiveRecord::Base
+  has_many :reservations
 end
