@@ -1,11 +1,16 @@
-Plant.destroy_all
-Person.destroy_all
-PlantParenthood.destroy_all
-Plant.reset_pk_sequence
-Person.reset_pk_sequence
-PlantParenthood.reset_pk_sequence
+User.destroy_all
+Flight.destroy_all
+Reservation.destroy_all
+Destination.destroy_all
+User.reset_pk_sequence
+Flight.reset_pk_sequence
+Reservation.reset_pk_sequence
+Destination.reset_pk_sequence
 
 ########### different ways to write your seeds ############
+#Users
+
+sam = User.create(user_name: "Samantha", cc_info: "123456")
 
 
 

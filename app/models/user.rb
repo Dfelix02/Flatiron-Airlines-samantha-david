@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
     has_many :reservations
     has_many :flights, through: :reservations
 
-
-
+  
     def self.register
         prompt = TTY::Prompt.new
         new_username = prompt.ask("Enter username")#ask the user a username
@@ -42,4 +41,5 @@ class User < ActiveRecord::Base
             User.create(username: userInfo, :password check_password)
         end
     end
+
 end
