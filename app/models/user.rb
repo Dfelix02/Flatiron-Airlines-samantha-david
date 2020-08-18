@@ -55,6 +55,19 @@ class User < ActiveRecord::Base
 
         find_user
     end
+
+    def book_a_flight
+        prompt = TTY::Prompt.new
+        date = prompt.ask("Enter date of departure:")
+        destination = prompt.select("Choose a destination:") do |menu|
+            Destination.all do |destination|
+                menu.choice 
+
+
+        
+    end
   
 
 end
+
+
