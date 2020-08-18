@@ -52,7 +52,7 @@ class Interface
             menu.choice "Book a flight\n", -> { self.user.book_a_flight }
             menu.choice "View reservations\n", -> { user_register_helper }
             menu.choice "Cancel reservation\n", -> { user_register_helper }
-            menu.choice "Exit\n", -> { user_register_helper }
+            menu.choice "Exit\n", -> { self.welcome }
     end
 
     end

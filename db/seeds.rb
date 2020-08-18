@@ -27,6 +27,7 @@ sydney = Destination.create(city: "Sydney", country: "Australia", airport: "SYD 
 #Flights
 
 to_dubai = Flight.create(date: "2020-08-20", destination_id: dubai.id, departing_time: "2:20 PM", arrival_time: "11:37 PM")
+to_dubai2 = Flight.create(date: "2020-08-20", destination_id: dubai.id, departing_time: "4:22 AM", arrival_time: "9:46 PM")
 to_hong_kong = Flight.create(date: "2020-09-05", destination_id: hong_kong.id, departing_time: "8:00 AM", arrival_time: "10:20 PM")
 to_bangkok = Flight.create(date: "2020-10-05", destination_id: bangkok.id, departing_time: "3:15 PM", arrival_time: "08:17 AM")
 to_rome = Flight.create(date: "2020-11-25", destination_id: rome.id, departing_time: "6:30 AM", arrival_time: "7:27 PM")

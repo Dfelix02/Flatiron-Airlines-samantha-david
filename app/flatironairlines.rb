@@ -8,7 +8,7 @@ class FlatironAirlines
   def run
     interface = Interface.new()
     interface.welcome
-    Plane.plane_animation
+    # Plane.plane_animation
     #interface.main_menu
     # welcome
     # login_or_signup
