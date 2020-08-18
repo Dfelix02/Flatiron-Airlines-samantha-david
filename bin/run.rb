@@ -1,4 +1,5 @@
 require_relative '../config/environment'
 
-app = nameOfYourApp.new
+app = FlatironAirlines.new
 app.run
+

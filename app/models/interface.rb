@@ -13,27 +13,27 @@ class Interface
         end
     end
 
-    def user_logging_in
-        user_instance = User.log_in
-       until user_instance
-        user_instance = User.log_in
-       end
-       self.user = user_instance
-        self.main_menu
-    end
+    # def user_logging_in
+    #     user_instance = User.log_in
+    #    until user_instance
+    #     user_instance = User.log_in
+    #    end
+    #    self.user = user_instance
+    #     self.main_menu
+    # end
 
-    def user_register_helper
-        user_instance = User.register
-       until user_instance
-        user_instance = User.register
-       end
-       self.user = user_instance
-        self.main_menu
-    end
+    # def user_register_helper
+    #     user_instance = User.register
+    #    until user_instance
+    #     user_instance = User.register
+    #    end
+    #    self.user = user_instance
+    #     self.main_menu
+    # end
 
 
-    def main_menu
-        user.reload 
-        system "clear" 
-    end
+    # def main_menu
+    #     user.reload 
+    #     system "clear" 
+    # end
 end

@@ -6,6 +6,8 @@ class FlatironAirlines
   # it is not an AR class so you need to add attr
 
   def run
+    interface = Interface.new()
+    interface.welcome
     # welcome
     # login_or_signup
     # wanna_see_favs?

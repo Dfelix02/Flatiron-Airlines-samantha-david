@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   
     def self.register
         prompt = TTY::Prompt.new
-        new_username = prompt.ask("Enter username")#ask the user a username
+        new_username = prompt.ask("Enter username")#ask the user for their username
         if User.find_by(username: new_username) #checks if it is taken or not
             #if it is it will display this message
             puts "Sorry, username already taken."
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
                 re_enter_password = prompt.ask("Confirm password")
             end
             #it will insert the information into the db and store it
-            User.create(username: userInfo, :password check_password)
+            User.create(username: new_username, password: check_password)
         end
     end
 
