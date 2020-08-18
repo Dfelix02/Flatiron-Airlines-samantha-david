@@ -32,8 +32,8 @@ class Interface
     end
 
 
-    # def main_menu
-    #     user.reload 
-    #     system "clear" 
-    # end
+    def main_menu
+        user.reload 
+        system "clear" 
+    end
 end
