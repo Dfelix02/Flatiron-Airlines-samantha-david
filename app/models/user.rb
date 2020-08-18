@@ -59,10 +59,11 @@ class User < ActiveRecord::Base
     def book_a_flight
         prompt = TTY::Prompt.new
         date = prompt.ask("Enter date of departure:")
-        destination = prompt.select("Choose a destination:") do |menu|
-            Destination.all do |destination|
-                menu.choice 
-
+        all_destinations = Destination.all.map do |destination|
+            "#{destination.city}, #{destination.country}, #{destination.airport}"
+        end
+        
+        destination = prompt.select("Choose destination", all_destinations)
 
         
     end
