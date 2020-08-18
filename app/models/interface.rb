@@ -50,7 +50,7 @@ class Interface
 ██║     ███████╗██║  ██║   ██║   ██║██║  ██║╚██████╔╝██║ ╚████║    ██║  ██║██║██║  ██║███████╗██║██║ ╚████║███████╗███████║
 ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝\n Welcome #{self.user.name}!\n") do |menu|
             menu.choice "Book a flight\n", -> { self.user.book_a_flight }
-            menu.choice "View reservations\n", -> { user_register_helper }
+            menu.choice "View reservations\n", -> { User.view_reservations(user[:id]) }
             menu.choice "Cancel reservation\n", -> { user_register_helper }
             menu.choice "Exit\n", -> { user_register_helper }
     end

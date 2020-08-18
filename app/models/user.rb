@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
         find_user
     end
-
+  
     def book_a_flight
         prompt = TTY::Prompt.new
         date = prompt.ask("Enter date of departure:")
@@ -64,10 +64,18 @@ class User < ActiveRecord::Base
                 menu.choice 
 
 
-        
+
     end
-  
 
+
+    def view_reservations(user_id)
+        Reservation.find(user_id).each do |reservation_info|
+            puts "#{reservation_info[:name]}, travelling to #{reservation_info[:country]}, #{reservation_info[:city]}.
+            Airport: #{reservation_info[:airport]}
+            Date: #{reservation_info[:date]}
+            Departing time: #{reservation_info[:departing_time]}.
+            Arrival_time: #{reservation_info[:arrival_time]}\n"
+        end
+
+    end
 end
-
-
