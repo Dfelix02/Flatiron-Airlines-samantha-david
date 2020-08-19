@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
             menu.choice "Enter your destination", -> { find_from_entering_destination(date) }
             menu.choice "Select from destinations", -> { find_from_destination_list(date) }
         end
-        
+        system "clear"
     end
 
     def find_from_entering_destination(date)
@@ -87,6 +87,7 @@ class User < ActiveRecord::Base
             puts "Sorry, there are no available flights on this day. Please try your search again."
             self.book_a_flight
         end
+        system "clear"
     end
 
     def find_from_destination_list(date)
@@ -105,8 +106,12 @@ class User < ActiveRecord::Base
             self.select_flight(flights_arr)
         else
             puts "Sorry, there are no available flights on this day."
-            self.book_a_flight
+            choice3 = prompt.select("Options:") do |menu|
+                menu.choice "New Search", -> {self.book_a_flight}
+                menu.choice "Back to Main Menu", -> {return}
+            end
         end
+        system "clear"
     end
 
     def select_flight(flights_arr)
@@ -118,7 +123,8 @@ class User < ActiveRecord::Base
             menu.choice "Confirm and Book Flight", -> {self.confirm_and_book_flight(flight_id)}
             menu.choice "Select Another Flight", -> {self. select_flight(flights_arr)}
             menu.choice "New Search", -> {self.book_a_flight}
-    end
+        end
+        system "clear"
     end
 
     def confirm_and_book_flight(flight_id)
@@ -126,41 +132,65 @@ class User < ActiveRecord::Base
         new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
         system "clear"
         puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
-
-        prompt.yes?("continue")
         Plane.plane_animation
         system "clear"
     end
 
     def view_reservations
         prompt = TTY::Prompt.new
-        reservations.each do |reservation_info|
-            puts "Confirmation no: #{reservation_info.id}"
-            puts reservation_info.user.name
-            puts "Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country} (#{reservation_info.flight.destination.airport})"
-            p reservation_info.flight.date
-            puts "Departing time: #{reservation_info.flight.departing_time}"
-            puts "Arrival time: #{reservation_info.flight.arrival_time}"
-            puts "-------------------------------------------------"
+        if reservations != []
+            reservations.each do |reservation_info|
+                puts "Confirmation no: #{reservation_info.id}"
+                puts reservation_info.user.name
+                puts "Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country} (#{reservation_info.flight.destination.airport})"
+                p reservation_info.flight.date
+                puts "Departing time: #{reservation_info.flight.departing_time}"
+                puts "Arrival time: #{reservation_info.flight.arrival_time}"
+                puts "-------------------------------------------------"
+            end
+            choice = prompt.select("Options:", ["Cancel a Reservation", "Back to Main Menu"])
+            choice == "Cancel a Reservation" ? self.cancel_reservation : return
+        else
+            puts "You have no reservations."
+            choice= prompt.select("Options:") do |menu|
+                menu.choice "Back to Main Menu", -> {return}
+            end
         end
+            system "clear"
     end
 
 
     def cancel_reservation
         prompt = TTY::Prompt.new
-        reservation = prompt.select("Which reservation would you like to cancel?", self.user_reservations)
-        reservation = reservation.split(" ")
-        reservation_id = reservation[2]
-        reservation_to_cancel = Reservation.find_by(id: reservation_id)
-        confirm_cancellation = prompt.yes?("Are you sure you want to cancel this reservation?")
-        # if confirm_cancellation
-        #     reservation_to_cancel.destroy
-        # else
-            
+        # binding.pry
+        if self.user_reservations == nil
+            puts "You have no reservations."
+            choice1= prompt.select("Options:") do |menu|
+                menu.choice "Back to Main Menu", -> {return}
+            end
+        else
+            reservation = prompt.select("Which reservation would you like to cancel?", self.user_reservations)
+            reservation = reservation.split(" ")
+            reservation_id = reservation[2]
+            reservation_to_cancel = Reservation.find_by(id: reservation_id)
+            confirm_cancellation = prompt.yes?("Are you sure you want to cancel this reservation?")
+            if confirm_cancellation
+                Reservation.delete(reservation_to_cancel)
+                system "clear"
+                Plane.plane_animation
+                system "clear"
+                puts "Your reservation has been cancelled."   
+                choice2= prompt.select("Options:") do |menu|
+                    menu.choice "Back to Main Menu", -> {return}
+                end
+            else
+                choice3 = prompt.select("Options:") do |menu|
+                    menu.choice "Select Another Reservation to Cancel", -> {self.cancel_reservation}
+                    menu.choice "Back to Main Menu", -> {return}
+                end
+            end
+        end
         system "clear"
-        Plane.plane_animation
-        system "clear"
-            
     end
 
     def user_reservations
@@ -175,5 +205,5 @@ class User < ActiveRecord::Base
         end
         reservations_array
     end
-    
+    system "clear"
 end
