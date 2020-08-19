@@ -1,5 +1,4 @@
 class Flight < ActiveRecord::Base
-  belongs_to :destination
   has_many :reservations
   has_many :users, through: :reservations
 
@@ -11,6 +10,10 @@ class Flight < ActiveRecord::Base
 
   def self.find_flights(date, destination_id)
     Flight.where(date: date, destination_id: destination_id)
+  end
+
+  def destination
+    Destination.find_by(id: self.destination_id)
   end
   
 end

@@ -1,3 +1,6 @@
+require 'date'
+require 'time'
+
 class User < ActiveRecord::Base
     has_many :reservations
     has_many :flights, through: :reservations
@@ -30,8 +33,8 @@ class User < ActiveRecord::Base
 
         new_user = User.create(name: user_info[:name], user_name: new_username, password: password, cc_info: user_info[:cc_info])
 
-        name = new_user.name.split(" ")
-        puts "Welcome, #{name[0]}!"
+        first_name = new_user.name.split(" ")
+        puts "Welcome, #{first_name[0]}!"
 
         new_user
     end
@@ -50,8 +53,8 @@ class User < ActiveRecord::Base
             password = prompt.ask("Enter password:")
         end
 
-        name = find_user.name.split(" ")
-        puts "Welcome back, #{name[0]}!"
+        first_name = find_user.name.split(" ")
+        puts "Welcome back, #{first_name[0]}!"
 
         find_user
     end
@@ -127,11 +130,13 @@ class User < ActiveRecord::Base
     def view_reservations
         reservations.each do |reservation_info|
             puts reservation_info.user.name
-            puts "travelling to #{reservation_info.flight.destination.country}, #{reservation_info.flight.destination.city}."
+            puts "Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country}."
             puts "Airport: #{reservation_info.flight.destination.airport}"
-            puts "Date: #{reservation_info.flight.date}"
+            p reservation_info.flight.date
             puts "Departing time: #{reservation_info.flight.departing_time}."
-            puts "Arrival_time: #{reservation_info.flight.arrival_time}\n"
+            puts "Arrival time: #{reservation_info.flight.arrival_time}"
+            puts "-------------------------------------------------"
+
         end
 
     end

@@ -9,9 +9,9 @@ Destination.destroy_all
 
 #Users
 
-sam = User.create(name: "Samantha", user_name: "sbalgobin", password: "password", cc_info: "123456")
-david = User.create(name: "David", user_name: "dfelix", password: "password", cc_info: "1234567")
-josh = User.create(name: "Joshua", user_name: "jitwaru", password: "password", cc_info: "12345678")
+sam = User.create(name: "Samantha Balgobin", user_name: "sbalgobin", password: "password", cc_info: "123456")
+david = User.create(name: "David Felix", user_name: "dfelix", password: "password", cc_info: "1234567")
+josh = User.create(name: "Joshua Itwaru", user_name: "jitwaru", password: "password", cc_info: "12345678")
 
 #Destinations
 
