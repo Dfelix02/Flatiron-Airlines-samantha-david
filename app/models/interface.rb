@@ -49,27 +49,27 @@ class Interface
 ██╔══╝  ██║     ██╔══██║   ██║   ██║██╔══██╗██║   ██║██║╚██╗██║    ██╔══██║██║██╔══██╗██║     ██║██║╚██╗██║██╔══╝  ╚════██║
 ██║     ███████╗██║  ██║   ██║   ██║██║  ██║╚██████╔╝██║ ╚████║    ██║  ██║██║██║  ██║███████╗██║██║ ╚████║███████╗███████║
 ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝\n Welcome #{self.user.name}!\n") do |menu|
-            menu.choice "Book a flight\n", -> { self.booking_a_flight }
-            menu.choice "View reservations\n", -> { self.viewing_reservations}
-            menu.choice "Cancel reservation\n", -> {self.canceling_reservation}
-            menu.choice "Exit\n", -> { self.welcome }
+            menu.choice "Book a flight\n", -> { booking_a_flight }
+            menu.choice "View reservations\n", -> { viewing_reservations}
+            menu.choice "Cancel reservation\n", -> { canceling_reservation}
+            menu.choice "Exit\n", -> { welcome }
         end
     end
 
-    # def booking_a_flight
-    #     user.book_a_flight
-    #     main_menu
-    # end
+    def booking_a_flight
+        user.book_a_flight
+        main_menu
+    end
 
-    # def viewing_reservations
-    #     user.view_reservations
-    #     main_menu
-    # end
+    def viewing_reservations
+        user.view_reservations
+        main_menu
+    end
 
-    # def canceling_reservation
-    #     user.cancel_reservation
-    #     main_menu
-    # end
+    def canceling_reservation
+        user.cancel_reservation
+        main_menu
+    end
     
     
 end
