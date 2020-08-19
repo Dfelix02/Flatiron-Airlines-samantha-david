@@ -10,10 +10,6 @@ class FlatironAirlines
     interface.welcome
     # Plane.plane_animation
     #interface.main_menu
-    # welcome
-    # login_or_signup
-    # wanna_see_favs?
-    # get_joke(what_subject)
   end
 
   private

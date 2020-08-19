@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
-gem "activerecord", "~> 5.2"
+
+gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
 
@@ -11,3 +12,6 @@ gem "faker"
 gem "tty-prompt"
 
 gem "colorize"
+
+gem 'activerecord-reset-pk-sequence'
+
