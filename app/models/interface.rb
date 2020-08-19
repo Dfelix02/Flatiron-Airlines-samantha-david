@@ -55,6 +55,5 @@ class Interface
             menu.choice "Exit\n", -> { self.welcome }
         end
     end
-
     
 end

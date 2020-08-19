@@ -123,15 +123,15 @@ class User < ActiveRecord::Base
         system "clear"
         puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
     end
-
+    
     def view_reservations
         reservations.each do |reservation_info|
             puts reservation_info.user.name
             puts "travelling to #{reservation_info.flight.destination.country}, #{reservation_info.flight.destination.city}."
             puts "Airport: #{reservation_info.flight.destination.airport}"
             puts "Date: #{reservation_info.flight.date}"
-            puts "Departing time: #{reservation_info.flight.date}."
-            puts "Arrival_time: #{reservation_info.flight.date}\n"
+            puts "Departing time: #{reservation_info.flight.departing_time}."
+            puts "Arrival_time: #{reservation_info.flight.arrival_time}\n"
         end
 
     end
