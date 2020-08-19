@@ -59,14 +59,72 @@ class User < ActiveRecord::Base
     def book_a_flight
         prompt = TTY::Prompt.new
         date = prompt.ask("Enter date of departure:")
-        all_destinations = Destination.all.map do |destination|
-            "#{destination.city}, #{destination.country}, #{destination.airport}"
+        prompt.select("Choose your destination:") do |menu|
+            menu.choice "Enter your destination", -> { find_from_entering_destination(date) }
+            menu.choice "Select from destinations", -> { find_from_destination_list(date) }
         end
         
-        destination = prompt.select("Choose destination", all_destinations)
-
-
     end
+
+    def find_from_entering_destination(date)
+        prompt = TTY::Prompt.new
+        destination = prompt.ask("Enter city, country")
+        destination_arr = destination.split(",")
+        city = destination_arr[0]
+        destination = Destination.find_by(city: city)
+        Plane.plane_animation
+        system "clear"
+        flights = Flight.find_flights(date, destination.id)
+        if flights != []
+            flights_arr = flights.map do |flight|
+                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time}"
+            end
+            self.select_flight(flights_arr)
+        else
+            puts "Sorry, there are no available flights on this day. Please try your search again."
+            self.book_a_flight
+        end
+    end
+
+    def find_from_destination_list(date)
+        prompt = TTY::Prompt.new
+        destination = prompt.select("Destinations:", [Flight.all_destinations])
+        destination_arr = destination.split(",")
+        city = destination_arr[0]
+        destination = Destination.find_by(city: city)
+        Plane.plane_animation
+        system "clear"
+        flights = Flight.find_flights(date, destination.id)
+        if flights != []
+            flights_arr = flights.map do |flight|
+                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time}"
+            end
+            self.select_flight(flights_arr)
+        else
+            puts "Sorry, there are no available flights on this day."
+            self.book_a_flight
+        end
+    end
+
+    def select_flight(flights_arr)
+        prompt = TTY::Prompt.new
+        flight = prompt.select("Please select a flight:", flights_arr)
+        flight_chosen = flight.split(" ")
+        flight_id = flight_chosen[2]
+        prompt.select("#{flight}") do |menu|
+            menu.choice "Confirm and Book Flight", -> {self.confirm_and_book_flight(flight_id)}
+            menu.choice "Select Another Flight", -> {self. select_flight(flights_arr)}
+            menu.choice "New Search", -> {self.book_a_flight}
+    end
+    end
+
+    def confirm_and_book_flight(flight_id)
+        new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
+        system "clear"
+        puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
+    end
+
+  
 
 
     def view_reservations(user_id)
