@@ -122,12 +122,18 @@ class User < ActiveRecord::Base
     end
 
     def confirm_and_book_flight(flight_id)
+        prompt = TTY::Prompt.new
         new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
         system "clear"
         puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
+
+        prompt.yes?("continue")
+        Plane.plane_animation
+        system "clear"
     end
 
     def view_reservations
+        prompt = TTY::Prompt.new
         reservations.each do |reservation_info|
             puts "Confirmation no: #{reservation_info.id}"
             puts reservation_info.user.name
@@ -147,11 +153,13 @@ class User < ActiveRecord::Base
         reservation_id = reservation[2]
         reservation_to_cancel = Reservation.find_by(id: reservation_id)
         confirm_cancellation = prompt.yes?("Are you sure you want to cancel this reservation?")
-        if confirm_cancellation
-            reservation_to_cancel.destroy
-        else
+        # if confirm_cancellation
+        #     reservation_to_cancel.destroy
+        # else
             
-
+        system "clear"
+        Plane.plane_animation
+        system "clear"
             
     end
 
