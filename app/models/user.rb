@@ -129,34 +129,43 @@ class User < ActiveRecord::Base
 
     def view_reservations
         reservations.each do |reservation_info|
+            puts "Confirmation no: #{reservation_info.id}"
             puts reservation_info.user.name
-            puts "Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country}."
-            puts "Airport: #{reservation_info.flight.destination.airport}"
+            puts "Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country} (#{reservation_info.flight.destination.airport})"
             p reservation_info.flight.date
-            puts "Departing time: #{reservation_info.flight.departing_time}."
+            puts "Departing time: #{reservation_info.flight.departing_time}"
             puts "Arrival time: #{reservation_info.flight.arrival_time}"
             puts "-------------------------------------------------"
-
         end
-
     end
+
 
     def cancel_reservation
         prompt = TTY::Prompt.new
-        chosen_reservation_id = prompt.select("Choose a reservation to cancel", reservations.each {|reservation_info|puts reservation_info.user.name
-        puts "travelling to #{reservation_info.flight.destination.country}, #{reservation_info.flight.destination.city}."
-        puts "Airport: #{reservation_info.flight.destination.airport}"
-        puts "Date: #{reservation_info.flight.date}"
-        puts "Departing time: #{reservation_info.flight.departing_time}."
-        puts "Arrival_time: #{reservation_info.flight.arrival_time}"})
+        reservation = prompt.select("Which reservation would you like to cancel?", self.user_reservations)
+        reservation = reservation.split(" ")
+        reservation_id = reservation[2]
+        reservation_to_cancel = Reservation.find_by(id: reservation_id)
+        confirm_cancellation = prompt.yes?("Are you sure you want to cancel this reservation?")
+        if confirm_cancellation
+            reservation_to_cancel.destroy
+        else
+            
 
-        are_you_sure = prompt.yes?("Are you sure you want to delete this reservation? (THIS OPTION CAN NOT BE UNDONE!)")
-       
-        if are_you_sure == "Y" || are_you_sure == "y" || are_you_sure == "yes"
-            reservation = Reservation.find_by(id: chosen_reservation_id)
-            reservation.destroy
-        end
-
-        #direct the user to the main manu
+            
     end
+
+    def user_reservations
+        reservations_array = reservations.map do |reservation_info|
+            "Confirmation number: #{reservation_info.id}\n
+            #{reservation_info.user.name}\n
+            Traveling to #{reservation_info.flight.destination.city}, #{reservation_info.flight.destination.country} (#{reservation_info.flight.destination.airport})\n
+            #{reservation_info.flight.date}\n
+            Departing time: #{reservation_info.flight.departing_time}\n
+            Arrival time: #{reservation_info.flight.arrival_time}\n
+            -------------------------------------------------"
+        end
+        reservations_array
+    end
+    
 end
