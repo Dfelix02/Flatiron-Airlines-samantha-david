@@ -2,10 +2,10 @@ User.destroy_all
 Flight.destroy_all
 Reservation.destroy_all
 Destination.destroy_all
-# User.reset_pk_sequence
-# Flight.reset_pk_sequence
-# Reservation.reset_pk_sequence
-# Destination.reset_pk_sequence
+User.reset_pk_sequence
+Flight.reset_pk_sequence
+Reservation.reset_pk_sequence
+Destination.reset_pk_sequence
 
 #Users
 
