@@ -1,4 +1,5 @@
 class Flight < ActiveRecord::Base
+  belongs_to :destination
   has_many :reservations
   has_many :users, through: :reservations
 
