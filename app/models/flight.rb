@@ -1,6 +1,7 @@
 class Flight < ActiveRecord::Base
   has_many :reservations
   has_many :users, through: :reservations
+  belongs_to :destination
 
   def self.all_destinations
     all_destinations = Destination.all.map do |destination|
@@ -12,8 +13,5 @@ class Flight < ActiveRecord::Base
     Flight.where(date: date, destination_id: destination_id)
   end
 
-  def destination
-    Destination.find_by(id: self.destination_id)
-  end
   
 end
