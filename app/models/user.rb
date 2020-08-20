@@ -214,33 +214,38 @@ class User < ActiveRecord::Base
                 menu.choice "Back to Main Menu", -> {return}
         end
 
-            reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
-            reservation = reservation.split(" ")
-            reservation_id = reservation[2]
-            reservation_to_update = Reservation.find_by(id: reservation_id)
+        reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
+        reservation = reservation.split(" ")
+        reservation_id = reservation[2]
+        reservation_to_update = Reservation.find_by(id: reservation_id)
 
-            prompt.select("What would you like to update?") do |menu|
-                menu.choice "Destination", -> 
-                { 
-                    confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
-                    if confirm
-                        self.update_destination
-                    end
-                }
-                menu.choice "Date", -> 
-                {
-                    confirm = prompt.yes?("Are you sure you want to update the date of the flight?")
-                    if confirm
-                        self.update_date
-                    end
-                }
+        prompt.select("What would you like to update?") do |menu|
+            menu.choice "Destination", -> 
+            { 
+                confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
+                if confirm
+                    system "clear"
+                    self.update_destination
+                end
+            }
+        end
 
+        prompt.select("Would you like to make any other changes?") do |menu|
+            menu.choice "Yes", -> {self.update_reservation}
+            menu.choice "No, take me to the main menu.", -> 
+            {
+                system "clear"
+                Plane.plane_animation
+                return            
+            }
             end
-
-            confirm = prompt.yes?("Are you sure you want to cancel this reservation?")
-
-            
             
     end
-    system "clear"
+
+    def update_destination(reservation)
+        system "clear"
+        Reservation.delete(reservation)
+        self.book_a_flight
+        puts "Your reservation has been updated."
+    end
 end
