@@ -7,7 +7,6 @@ class Interface
     end
 
     def welcome
-        system "clear"
         prompt.select("
 ███████╗██╗      █████╗ ████████╗██╗██████╗  ██████╗ ███╗   ██╗     █████╗ ██╗██████╗ ██╗     ██╗███╗   ██╗███████╗███████╗
 ██╔════╝██║     ██╔══██╗╚══██╔══╝██║██╔══██╗██╔═══██╗████╗  ██║    ██╔══██╗██║██╔══██╗██║     ██║████╗  ██║██╔════╝██╔════╝
@@ -22,11 +21,17 @@ class Interface
 
     def user_logging_in
         user_instance = User.log_in
-       until user_instance
-        user_instance = User.log_in
-       end
+        
+        if !user_instance
+            system "clear"
+            puts "Username does not exist. Going back to login/registration."
+            sleep(2)
+            system "clear"
+            self.welcome
+        end
        self.user = user_instance
         self.main_menu
+
     end
 
     def user_register_helper
@@ -52,7 +57,7 @@ class Interface
             menu.choice "Book a flight\n", -> { booking_a_flight }
             menu.choice "View reservations\n", -> { viewing_reservations}
             menu.choice "Cancel reservation\n", -> { canceling_reservation}
-            menu.choice "Update reservation\n", -> { updating_reservation }
+            menu.choice "Update account info\n", -> { updating_account_info }
             menu.choice "Exit\n", -> { welcome }
         end
     end
@@ -73,8 +78,8 @@ class Interface
         main_menu
     end
 
-    def updating_reservation
-        user.update_reservation
+    def updating_account_info
+        user.update_account_info
         main_menu
     end
 

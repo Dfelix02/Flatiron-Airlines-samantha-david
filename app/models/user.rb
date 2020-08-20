@@ -43,21 +43,22 @@ class User < ActiveRecord::Base
         prompt = TTY::Prompt.new
         user_name = prompt.ask("Enter username:")
         find_user = User.find_by(user_name: user_name)
-        if !find_user
-            not_found = prompt.select("Username not found.", ["Try Again", "Register"])
-            not_found == "Try Again" ? self.log_in : self.register
-        end
 
+        if !find_user
+            return nil
+        end
+        
         password = prompt.ask("Enter password:")
         until password == find_user.password
             password = prompt.ask("Enter password:")
         end
-
         first_name = find_user.name.split(" ")
         puts "Welcome back, #{first_name[0]}!"
-
-        find_user
+        
+        return find_user
+    
     end
+
   
     def book_a_flight
         prompt = TTY::Prompt.new
@@ -111,7 +112,6 @@ class User < ActiveRecord::Base
                 menu.choice "Back to Main Menu", -> {return}
             end
         end
-        system "clear"
     end
 
     def select_flight(flights_arr)
@@ -123,17 +123,18 @@ class User < ActiveRecord::Base
             menu.choice "Confirm and Book Flight", -> {self.confirm_and_book_flight(flight_id)}
             menu.choice "Select Another Flight", -> {self. select_flight(flights_arr)}
             menu.choice "New Search", -> {self.book_a_flight}
+            menu.choice "Back to Main Menu", -> {return}
         end
-        system "clear"
     end
 
     def confirm_and_book_flight(flight_id)
         prompt = TTY::Prompt.new
         new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
-        system "clear"
-        puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
         Plane.plane_animation
-        system "clear"
+        puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
+        prompt.select("Option: ") do |menu|
+            menu.choice "Back to Main Menu", -> {return}
+        end
     end
 
     def view_reservations
@@ -204,40 +205,96 @@ class User < ActiveRecord::Base
             -------------------------------------------------"
         end
         reservations_array
-        system "clear"
     end
 
-    def update_reservation
+    def update_account_info
         prompt = TTY::Prompt.new
-        if self.user_reservations == nil
-            puts "You have no reservations."
-            choice1= prompt.select("Options:") do |menu|
-                menu.choice "Back to Main Menu", -> {return}
-            end
+        prompt.select("What would you like to do?") do |menu|
+            menu.choice "Update username", -> {self.update_username}
+            menu.choice "Update password", -> {self.update_password}
+            menu.choice "Update credit card info", -> {self.update_cc_info}
+            menu.choice "Back to main menu", -> {return}
         end
-        
-        binding.pry
-        reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
-        
-        reservation = reservation.split(" ")
-        reservation_id = reservation[2]
-        reservation_to_update = Reservation.find_by(id: reservation_id)
-
-        confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
-        if confirm
-            self.update_destination
-        end
-        
-        prompt.select("Would you like to make any other changes?") do |menu|
-            menu.choice "Yes", -> {self.update_reservation}
-            menu.choice "No, take me to the main menu.", -> {return}  
-        end  
     end
 
-    def update_destination(reservation)
-        system "clear"
-        Reservation.delete(reservation)
-        self.book_a_flight
-        puts "Your reservation has been updated."
+    def update_username
+        prompt = TTY::Prompt.new
+        new_username = prompt.ask("Enter new username:")
+        self.user_name = new_username
+        self.save
+        puts "Your username has been updated to #{self.user_name}."
+        sleep(2)
     end
+
+    def update_password
+        prompt = TTY::Prompt.new
+        new_password = prompt.ask("Enter new password:")
+        confirm_password = prompt.ask("Confirm password:")
+
+        until confirm_password == new_password
+            puts "Passwords do not match, please try again."
+            new_password = prompt.ask("Enter a password:")
+            confirm_password = prompt.ask("Confirm password:")
+        end
+
+        self.password = new_password
+        self.save
+
+        puts "Your password has been updated."
+        sleep(2)
+    end 
+    
+    def update_cc_info
+        prompt = TTY::Prompt.new
+        new_cc_info = prompt.ask("Enter new credit card information:")
+        self.cc_info = new_cc_info
+        self.save
+        puts "Your payment method has been updated to credit card ending in #{self.cc_info.split(//).last(4).join}."
+        sleep(2)
+    end
+        
+
+
+
+    # def update_reservation
+    #     if self.user_reservations == nil
+    #         puts "You have no reservations."
+    #         choice1= prompt.select("Options:") do |menu|
+    #             menu.choice "Back to Main Menu", -> {return}
+    #     end
+
+    #     reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
+    #     reservation = reservation.split(" ")
+    #     reservation_id = reservation[2]
+    #     reservation_to_update = Reservation.find_by(id: reservation_id)
+
+    #     prompt.select("What would you like to update?") do |menu|
+    #         menu.choice "Destination", -> 
+    #         { 
+    #             confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
+    #             if confirm
+    #                 system "clear"
+    #                 self.update_destination
+    #             end
+    #         }
+    #     end
+
+    #     prompt.select("Would you like to make any other changes?") do |menu|
+    #         menu.choice "Yes", -> {self.update_reservation}
+    #         menu.choice "No, take me to the main menu.", -> 
+    #         {
+    #             system "clear"
+    #             Plane.plane_animation
+    #             return            
+    #         }
+    #         end
+            
+    # end
+
+    # def update_destination(reservation)
+    #     system "clear"
+    #     Reservation.delete(reservation)
+    #     self.book_a_flight
+    #     puts "Your reservation has been updated."
+    # end
 end
