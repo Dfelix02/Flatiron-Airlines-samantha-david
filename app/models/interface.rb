@@ -52,9 +52,11 @@ class Interface
             menu.choice "Book a flight\n", -> { booking_a_flight }
             menu.choice "View reservations\n", -> { viewing_reservations}
             menu.choice "Cancel reservation\n", -> { canceling_reservation}
+            menu.choice "Update reservation\n", -> { updating_reservation }
             menu.choice "Exit\n", -> { welcome }
         end
     end
+
 
     def booking_a_flight
         user.book_a_flight
@@ -70,6 +72,13 @@ class Interface
         user.cancel_reservation
         main_menu
     end
+
+    def updating_reservation
+        user.update_reservation
+        main_menu
+    end
+
+    
     
     
 end
