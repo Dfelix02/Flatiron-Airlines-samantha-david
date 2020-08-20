@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
   
     def self.register
         prompt = TTY::Prompt.new
-
+        system "clear"
+        Ascii_imgs.flatiron_logo
+        Ascii_imgs.flatiron_banner
         new_username = prompt.ask("Create a username:")#ask the user for their username
         until !User.find_by(user_name: new_username)
             puts "Sorry, that username has been taken."
@@ -35,11 +37,14 @@ class User < ActiveRecord::Base
 
         first_name = new_user.name.split(" ")
         puts "Welcome, #{first_name[0]}!"
-
+        system "clear"
         new_user
     end
 
     def self.log_in
+        system "clear"
+        Ascii_imgs.flatiron_logo
+        Ascii_imgs.flatiron_banner
         prompt = TTY::Prompt.new
         user_name = prompt.ask("Enter username:")
         find_user = User.find_by(user_name: user_name)
@@ -54,7 +59,8 @@ class User < ActiveRecord::Base
         end
         first_name = find_user.name.split(" ")
         puts "Welcome back, #{first_name[0]}!"
-        
+
+        system "clear"
         return find_user
     
     end

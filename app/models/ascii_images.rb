@@ -8,9 +8,6 @@ class Ascii_imgs
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooo+///////+oooooooo///////+ooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooo.      `+ooooooo-       /ooooooooooooooooooooooooooooo
                     ooooooooooooooooooooooooooooooooooooooooooooo/       -ooooooo+       .oooooooooooooooooooooooooooooo
@@ -43,9 +40,6 @@ class Ascii_imgs
                     ooooooooooooooooooooooooooooo+       .ooooooo+`      `+ooooooooooooooooooooooooooooooooooooooooooooo
                     ooooooooooooooooooooooooooooo.       /ooooooo-       :oooooooooooooooooooooooooooooooooooooooooooooo
                     ooooooooooooooooooooooooooooo////////oooooooo////////ooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                    oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                     oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo

@@ -20,7 +20,7 @@ class Plane
                ``                                                                                   
               .::`                                                                                  
               ::.                                                                                   
-               ` "
+               ` ".light_blue
 
         frame1 = "
                                                                                                             
@@ -39,7 +39,7 @@ class Plane
                                                               ``            `.::-                   
                                                                                                     
                                                                                                     
-                                                                                                    "
+                                                                                                    ".light_blue
 
         frame2 = "
                                                                                                     
@@ -65,7 +65,7 @@ class Plane
                                                                                      `///-          
                                                                                       -//-          
                                                                                                     
-                                                                                                    "
+                                                                                                    ".light_blue
 
         frame3 = "
                                                                                                 
@@ -96,7 +96,7 @@ class Plane
                                                                                  -//:`              
                                                                                 `///.               
                                                                                 `-:.                
-                                                                                                    "
+                                                                                                    ".light_blue
 
         frame4 = "
                                                
@@ -125,7 +125,7 @@ class Plane
                                                               `-:///:--:::://:-`                    
                                                               ://:-.`    ``..-::-                   
                                                               `.``             `                    
-                                                                                                    "
+                                                                                                    ".light_blue
 
         frame5 = "                                    
                                                                                    `..              
@@ -147,7 +147,7 @@ class Plane
                                                   `:/-                                              
                                                     ``                                              
                                                                                                     
-"
+".light_blue
 
         frame6 = "                                                                              
                    .-.`                                                                             
@@ -160,7 +160,7 @@ class Plane
                         //:`   `:/:.  `-:-.     ```      `.--.    ``                                
                         //.     --`    `...    `::::`    ---.`                                      
                         .:      `               ````                                                
-"
+".light_blue
 
         frame7 = "                                                                                       
         `:/:                                                                                      
@@ -183,7 +183,7 @@ class Plane
                                `--.`                                                              
                                `.-::     ```                                                      
                                         `::::                                                     
-                                          ``                             "
+                                          ``                             ".light_blue
 
         frame8 = "                                                                                    
                   .-.                                                                               
@@ -214,7 +214,7 @@ class Plane
                       ::-`                                                                          
                       `-:-                                                                          
                         `                                                                                                        
-        "
+        ".light_blue
 
         frame9 = "
                      .--.``        `.-:-`                                                           
@@ -241,7 +241,7 @@ class Plane
             --`                                                                                     
             :/.                                                                                     
             `.`                                                                                           
-        "
+        ".light_blue
 
         frame10 = "
                                           ```                                                       
@@ -262,7 +262,7 @@ class Plane
                                                                                                     
               ```                                                                                   
              `//.                                                                                   
-             .:-                                                               "
+             .:-                                                               ".light_blue
 
         animation_array = [frame0, frame1, frame2, 
         frame3, frame4, frame5, frame6, frame7, frame8,
