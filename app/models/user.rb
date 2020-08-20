@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
         flights = Flight.find_flights(date, destination.id)
         if flights != []
             flights_arr = flights.map do |flight|
-                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time}"
+                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time} - Price: $#{flight.price}"
             end
             self.select_flight(flights_arr)
         else
@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
         flights = Flight.find_flights(date, destination.id)
         if flights != []
             flights_arr = flights.map do |flight|
-                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time}"
+                "Flight no. #{flight.id} - Date: #{flight.date} - Leaving from: New York City - Going to: #{destination.city}, #{destination.country} - Departing: #{flight.departing_time} - Arriving: #{flight.arrival_time} - Price: $#{flight.price}"
             end
             self.select_flight(flights_arr)
         else
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
         Ascii_imgs.flatiron_banner
         new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
         Plane.plane_animation
-        puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
+        puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged $#{new_reservation.flight.price}."
         prompt.select("Option: ") do |menu|
             menu.choice "Back to Main Menu", -> {return}
         end
@@ -164,6 +164,7 @@ class User < ActiveRecord::Base
                 p reservation_info.flight.date
                 puts "Departing time: #{reservation_info.flight.departing_time}"
                 puts "Arrival time: #{reservation_info.flight.arrival_time}"
+                puts "Price: $#{reservation_info.flight.price}"
                 puts "-------------------------------------------------"
             end
             choice = prompt.select("Options:", ["Cancel a Reservation", "Back to Main Menu"])
@@ -218,6 +219,7 @@ class User < ActiveRecord::Base
             #{reservation_info.flight.date}\n
             Departing time: #{reservation_info.flight.departing_time}\n
             Arrival time: #{reservation_info.flight.arrival_time}\n
+            Price: $#{reservation_info.flight.price}
             -------------------------------------------------"
         end
         system "clear"
@@ -242,6 +244,7 @@ class User < ActiveRecord::Base
         new_username = prompt.ask("Enter new username:")
         self.user_name = new_username
         self.save
+        system "clear"
         puts "Your username has been updated to #{self.user_name}."
         sleep(2)
         system "clear"
@@ -260,7 +263,7 @@ class User < ActiveRecord::Base
 
         self.password = new_password
         self.save
-
+        system "clear"
         puts "Your password has been updated."
         sleep(2)
         system "clear"
@@ -271,53 +274,10 @@ class User < ActiveRecord::Base
         new_cc_info = prompt.ask("Enter new credit card information:")
         self.cc_info = new_cc_info
         self.save
+        system "clear"
         puts "Your payment method has been updated to credit card ending in #{self.cc_info.split(//).last(4).join}."
         sleep(2)
         system "clear"
     end
         
-
-
-
-    # def update_reservation
-    #     if self.user_reservations == nil
-    #         puts "You have no reservations."
-    #         choice1= prompt.select("Options:") do |menu|
-    #             menu.choice "Back to Main Menu", -> {return}
-    #     end
-
-    #     reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
-    #     reservation = reservation.split(" ")
-    #     reservation_id = reservation[2]
-    #     reservation_to_update = Reservation.find_by(id: reservation_id)
-
-    #     prompt.select("What would you like to update?") do |menu|
-    #         menu.choice "Destination", -> 
-    #         { 
-    #             confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
-    #             if confirm
-    #                 system "clear"
-    #                 self.update_destination
-    #             end
-    #         }
-    #     end
-
-    #     prompt.select("Would you like to make any other changes?") do |menu|
-    #         menu.choice "Yes", -> {self.update_reservation}
-    #         menu.choice "No, take me to the main menu.", -> 
-    #         {
-    #             system "clear"
-    #             Plane.plane_animation
-    #             return            
-    #         }
-    #         end
-            
-    # end
-
-    # def update_destination(reservation)
-    #     system "clear"
-    #     Reservation.delete(reservation)
-    #     self.book_a_flight
-    #     puts "Your reservation has been updated."
-    # end
 end
