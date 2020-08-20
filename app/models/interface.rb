@@ -8,16 +8,12 @@ class Interface
 
     def welcome
         system "clear"
-        prompt.select("
-███████╗██╗      █████╗ ████████╗██╗██████╗  ██████╗ ███╗   ██╗     █████╗ ██╗██████╗ ██╗     ██╗███╗   ██╗███████╗███████╗
-██╔════╝██║     ██╔══██╗╚══██╔══╝██║██╔══██╗██╔═══██╗████╗  ██║    ██╔══██╗██║██╔══██╗██║     ██║████╗  ██║██╔════╝██╔════╝
-█████╗  ██║     ███████║   ██║   ██║██████╔╝██║   ██║██╔██╗ ██║    ███████║██║██████╔╝██║     ██║██╔██╗ ██║█████╗  ███████╗
-██╔══╝  ██║     ██╔══██║   ██║   ██║██╔══██╗██║   ██║██║╚██╗██║    ██╔══██║██║██╔══██╗██║     ██║██║╚██╗██║██╔══╝  ╚════██║
-██║     ███████╗██║  ██║   ██║   ██║██║  ██║╚██████╔╝██║ ╚████║    ██║  ██║██║██║  ██║███████╗██║██║ ╚████║███████╗███████║
-╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝\n") do |menu|
+        Ascii_imgs.flatiron_logo
+        prompt.select("#{Ascii_imgs.flatiron_banner}\n") do |menu|
             menu.choice "Log in\n", -> { user_logging_in}
             menu.choice "Register\n", -> { user_register_helper }
         end
+        system "clear"
     end
 
     def user_logging_in
@@ -48,13 +44,8 @@ class Interface
     def main_menu
         user.reload 
         system "clear" 
-        prompt.select("
-███████╗██╗      █████╗ ████████╗██╗██████╗  ██████╗ ███╗   ██╗     █████╗ ██╗██████╗ ██╗     ██╗███╗   ██╗███████╗███████╗
-██╔════╝██║     ██╔══██╗╚══██╔══╝██║██╔══██╗██╔═══██╗████╗  ██║    ██╔══██╗██║██╔══██╗██║     ██║████╗  ██║██╔════╝██╔════╝
-█████╗  ██║     ███████║   ██║   ██║██████╔╝██║   ██║██╔██╗ ██║    ███████║██║██████╔╝██║     ██║██╔██╗ ██║█████╗  ███████╗
-██╔══╝  ██║     ██╔══██║   ██║   ██║██╔══██╗██║   ██║██║╚██╗██║    ██╔══██║██║██╔══██╗██║     ██║██║╚██╗██║██╔══╝  ╚════██║
-██║     ███████╗██║  ██║   ██║   ██║██║  ██║╚██████╔╝██║ ╚████║    ██║  ██║██║██║  ██║███████╗██║██║ ╚████║███████╗███████║
-╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝\n Welcome #{self.user.name}!\n") do |menu|
+        Ascii_imgs.flatiron_logo
+        prompt.select("#{Ascii_imgs.flatiron_banner}\n" + "Welcome #{self.user.name}!\n") do |menu|
             menu.choice "Book a flight\n", -> { booking_a_flight }
             menu.choice "View reservations\n", -> { viewing_reservations}
             menu.choice "Cancel reservation\n", -> { canceling_reservation}
@@ -70,6 +61,7 @@ class Interface
     end
 
     def viewing_reservations
+        system "clear"
         user.view_reservations
         main_menu
     end
