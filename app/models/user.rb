@@ -236,16 +236,14 @@ class User < ActiveRecord::Base
                 }
 
                 prompt.select("Would you like to make any other changes?") do |menu|
-                    menu.choice "Yes", -> { }
+                    menu.choice "Yes", -> {self.update_reservation}
                     menu.choice "No, take me to the main menu.", -> 
                     {
-                        confirm = prompt.yes?("Are you sure you want to update the date of the flight?")
-                        if confirm
-                            self.update_date
-                        end
+                        return
+                        system "clear"
                     }
 
-                system "clear"
+                
             end
 
             
@@ -256,6 +254,7 @@ class User < ActiveRecord::Base
         system "clear"
         Reservation.delete(reservation)
         self.book_a_flight
+        puts "Your reservation has been updated."
     end
 
     def update_date
