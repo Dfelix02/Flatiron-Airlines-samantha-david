@@ -7,7 +7,6 @@ class Interface
     end
 
     def welcome
-        system "clear"
         prompt.select("
 ███████╗██╗      █████╗ ████████╗██╗██████╗  ██████╗ ███╗   ██╗     █████╗ ██╗██████╗ ██╗     ██╗███╗   ██╗███████╗███████╗
 ██╔════╝██║     ██╔══██╗╚══██╔══╝██║██╔══██╗██╔═══██╗████╗  ██║    ██╔══██╗██║██╔══██╗██║     ██║████╗  ██║██╔════╝██╔════╝
@@ -22,11 +21,17 @@ class Interface
 
     def user_logging_in
         user_instance = User.log_in
-       until user_instance
-        user_instance = User.log_in
-       end
+        
+        if !user_instance
+            system "clear"
+            puts "Username does not exist. Going back to login/registration."
+            sleep(2)
+            system "clear"
+            self.welcome
+        end
        self.user = user_instance
         self.main_menu
+
     end
 
     def user_register_helper
