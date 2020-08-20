@@ -1,49 +1,30 @@
-## Process
+# Flatiron Airlines
+**Flatiron Airlines** is a CLI app that allows you to book a flight with Flatiron Airlines. 
 
-### NOTE
-- this setup contains a rakefile with helpful process reminders
+## How to Install
+1. Clone the repo onto your local machine.
+1. Navigate to the repo directory from your terminal.
+1. Run `bundle install` to install the required gems.
+1. Run `rake db:migrate` to create the database.
+1. Run `rake db:seed` to populate the database.
+1. Run `ruby bin/run.rb` to open the app.
 
-### Setup
-1. Create Gemfile + run `bundle`
-2. Create migrations: run `rake db:create_migration` and add the syntax you need (e.g. `NAME=create_users`)
-3. Migrate: run `rake db:migrate`
-* **REMEMBER** never ever ever change anything in schema.
-4. Go to `.bin/run.rb` and change the name of the app on line 3 AND/OR go to `Rakefile` and change the name of the app on line 15
-5. Go to `./app/models` and change the names of the files (e.g. `User.rb` <- singular) and the class names inside
-6. Set up association macros in classes (`belongs_to` / `has_many` / `has_many, through:`)
-7. Create seed file in `db/seed.rb` + then run `rake db:seed`
-* remember: seeding does not give you any output so no news on your console == good news
-8. Check if you've seeded correctly: run `rake c` and check what's the last instance of any of your class 
-9. Go to `./app/yourAppName.rb` and change that file's name and whatever is inside (the class name should correspond to what you wrote in `.bin/run.rb` on line 3)
+## Login / Register Menu
+- Login if you already have an account
+- Register if you don't have an account
 
-### Coding
-1. Create a dummy version of your logic -> hardcode it and don't yet make your code save anything to the database, just make sure that the logic works
-2. Test often by running the file or by `binding.pry`
-3. What I fould useful is drowing out every step I want to guide users through before coding - my whiteboard looked like this:
-![](Sunday.jpg)
-4. Then I coded the dummy version (without saving to the database, just to see if all "if"s are working and all that jazz)
-5. Then I added the database manipulations.
-6. Then I beautified the code and the app to make it visually pleasing
+## Main Menu
+1. Book a Flight - Allows you to book a flight.
+    -You can return to the main menu, confirm a flight, and create a new search from here.
+2. View Reservations - Allows you to view your reservations.
+    -You can cancel a reservation or return to the main menu from here.
+3. Cancel Reservations - Allows you cancel a reservation.
+    -You can return to the main menu from here.
+4. Exit - Allows you to log out and return to the login/register menu.
 
-## APIs
 
-- [Dad Jokes API Docs](https://icanhazdadjoke.com/api)
-- [Sample API Request](https://icanhazdadjoke.com/api#fetch-a-random-dad-joke)
+## Gems Used
+- [TTY::Prompt](https://github.com/piotrmurach/tty-prompt)
 
-- [More APIs](https://rapidapi.com/collection/cool-apis)
-- [And even more APIs](https://medium.com/@vicbergquist/18-fun-apis-for-your-next-project-8008841c7be9)
-
-## Fun Gems For Your Projects
-- `faker` - randomly generated seed data fun
-- `colorize` - colored text output in your terminal
-- `lolcat` - enabling rainbow text coloring
-- `rest-client` - make HTTP requests and get data from APIs
-- `tty-prompt` - nice interface for prompting for user input
-- `formatador` - styling output information into a neat table
-- `artii` - creating text banners
-
-## Tutorials
-- [Adding animations to your CLI by Sylwia Vargas](https://medium.com/better-programming/add-an-animation-or-a-giph-to-your-ruby-cli-29952e8c46ea)
-- [Adding ASCII Art to your CLI by Sylwia Vargas](https://medium.com/@sylwiavargas/adding-pictures-to-your-ruby-cli-4252b89823a)
-- [Using Time/Date in your CLI by Joel Mendoza](https://medium.com/@joelmendza173/ruby-date-time-for-dummies-9f45518bab64)
-
+## Notion Page
+- https://www.notion.so/Mod-1-Project-835eff55b57e4ae383c1444990d77745
