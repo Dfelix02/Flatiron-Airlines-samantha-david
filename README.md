@@ -20,11 +20,13 @@
     -You can cancel a reservation or return to the main menu from here.
 3. Cancel Reservations - Allows you cancel a reservation.
     -You can return to the main menu from here.
-4. Exit - Allows you to log out and return to the login/register menu.
+4. Update Reservations - Allows you to update your reservation by canceling the selected reservation and making a new one.
+5. Exit - Allows you to log out and return to the login/register menu.
 
 
-## Gems Used
+## Tech Stack
 - [TTY::Prompt](https://github.com/piotrmurach/tty-prompt)
+- SQL
 
 ## Notion Page
 - https://www.notion.so/Mod-1-Project-835eff55b57e4ae383c1444990d77745

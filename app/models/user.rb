@@ -207,6 +207,55 @@ class User < ActiveRecord::Base
         reservations_array
     end
 
+    def update_account_info
+        prompt = TTY::Prompt.new
+        prompt.select("What would you like to do?") do |menu|
+            menu.choice "Update username", -> {self.update_username}
+            menu.choice "Update password", -> {self.update_password}
+            menu.choice "Update credit card info", -> {self.update_cc_info}
+            menu.choice "Back to main menu", -> {return}
+        end
+    end
+
+    def update_username
+        prompt = TTY::Prompt.new
+        new_username = prompt.ask("Enter new username:")
+        self.user_name = new_username
+        self.save
+        puts "Your username has been updated to #{self.user_name}."
+        sleep(2)
+    end
+
+    def update_password
+        prompt = TTY::Prompt.new
+        new_password = prompt.ask("Enter new password:")
+        confirm_password = prompt.ask("Confirm password:")
+
+        until confirm_password == new_password
+            puts "Passwords do not match, please try again."
+            new_password = prompt.ask("Enter a password:")
+            confirm_password = prompt.ask("Confirm password:")
+        end
+
+        self.password = new_password
+        self.save
+
+        puts "Your password has been updated."
+        sleep(2)
+    end 
+    
+    def update_cc_info
+        prompt = TTY::Prompt.new
+        new_cc_info = prompt.ask("Enter new credit card information:")
+        self.cc_info = new_cc_info
+        self.save
+        puts "Your payment method has been updated to credit card ending in #{self.cc_info.split(//).last(4).join}."
+        sleep(2)
+    end
+        
+
+
+
     # def update_reservation
     #     if self.user_reservations == nil
     #         puts "You have no reservations."

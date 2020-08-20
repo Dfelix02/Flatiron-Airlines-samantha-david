@@ -57,7 +57,7 @@ class Interface
             menu.choice "Book a flight\n", -> { booking_a_flight }
             menu.choice "View reservations\n", -> { viewing_reservations}
             menu.choice "Cancel reservation\n", -> { canceling_reservation}
-            menu.choice "Update reservation\n", -> { updating_reservation }
+            menu.choice "Update account info\n", -> { updating_account_info }
             menu.choice "Exit\n", -> { welcome }
         end
     end
@@ -78,8 +78,8 @@ class Interface
         main_menu
     end
 
-    def updating_reservation
-        user.update_reservation
+    def updating_account_info
+        user.update_account_info
         main_menu
     end
 
