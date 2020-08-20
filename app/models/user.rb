@@ -61,6 +61,9 @@ class User < ActiveRecord::Base
 
   
     def book_a_flight
+        system "clear"
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         prompt = TTY::Prompt.new
         date = prompt.ask("Enter date of departure:")
         prompt.select("Choose your destination:") do |menu|
@@ -71,6 +74,8 @@ class User < ActiveRecord::Base
     end
 
     def find_from_entering_destination(date)
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         prompt = TTY::Prompt.new
         destination = prompt.ask("Enter city, country")
         destination_arr = destination.split(",")
@@ -78,6 +83,8 @@ class User < ActiveRecord::Base
         destination = Destination.find_by(city: city)
         Plane.plane_animation
         system "clear"
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         flights = Flight.find_flights(date, destination.id)
         if flights != []
             flights_arr = flights.map do |flight|
@@ -92,13 +99,18 @@ class User < ActiveRecord::Base
     end
 
     def find_from_destination_list(date)
+        system "clear"
         prompt = TTY::Prompt.new
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         destination = prompt.select("Destinations:", [Flight.all_destinations])
         destination_arr = destination.split(",")
         city = destination_arr[0]
         destination = Destination.find_by(city: city)
         Plane.plane_animation
         system "clear"
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         flights = Flight.find_flights(date, destination.id)
         if flights != []
             flights_arr = flights.map do |flight|
@@ -129,6 +141,8 @@ class User < ActiveRecord::Base
 
     def confirm_and_book_flight(flight_id)
         prompt = TTY::Prompt.new
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         new_reservation = Reservation.create(user_id: self.id, flight_id: flight_id)
         Plane.plane_animation
         puts "Your flight is confirmed and your card ending in #{self.cc_info.split(//).last(4).join} will be charged."
@@ -138,7 +152,10 @@ class User < ActiveRecord::Base
     end
 
     def view_reservations
+        system "clear"
         prompt = TTY::Prompt.new
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         if reservations != []
             reservations.each do |reservation_info|
                 puts "Confirmation no: #{reservation_info.id}"
@@ -163,7 +180,6 @@ class User < ActiveRecord::Base
 
     def cancel_reservation
         prompt = TTY::Prompt.new
-        # binding.pry
         if self.user_reservations == nil
             puts "You have no reservations."
             choice1= prompt.select("Options:") do |menu|
@@ -204,11 +220,15 @@ class User < ActiveRecord::Base
             Arrival time: #{reservation_info.flight.arrival_time}\n
             -------------------------------------------------"
         end
+        system "clear"
         reservations_array
     end
 
     def update_account_info
         prompt = TTY::Prompt.new
+        system "clear"
+        Ascii_imgs.plane
+        Ascii_imgs.flatiron_banner
         prompt.select("What would you like to do?") do |menu|
             menu.choice "Update username", -> {self.update_username}
             menu.choice "Update password", -> {self.update_password}
@@ -224,6 +244,7 @@ class User < ActiveRecord::Base
         self.save
         puts "Your username has been updated to #{self.user_name}."
         sleep(2)
+        system "clear"
     end
 
     def update_password
@@ -242,6 +263,7 @@ class User < ActiveRecord::Base
 
         puts "Your password has been updated."
         sleep(2)
+        system "clear"
     end 
     
     def update_cc_info
@@ -251,6 +273,7 @@ class User < ActiveRecord::Base
         self.save
         puts "Your payment method has been updated to credit card ending in #{self.cc_info.split(//).last(4).join}."
         sleep(2)
+        system "clear"
     end
         
 
