@@ -205,5 +205,41 @@ class User < ActiveRecord::Base
         end
         reservations_array
     end
+
+    def update_reservation
+        if self.user_reservations == nil
+            puts "You have no reservations."
+            choice1= prompt.select("Options:") do |menu|
+                menu.choice "Back to Main Menu", -> {return}
+        end
+
+            reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
+            reservation = reservation.split(" ")
+            reservation_id = reservation[2]
+            reservation_to_update = Reservation.find_by(id: reservation_id)
+
+            prompt.select("What would you like to update?") do |menu|
+                menu.choice "Destination", -> 
+                { 
+                    confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
+                    if confirm
+                        self.update_destination
+                    end
+                }
+                menu.choice "Date", -> 
+                {
+                    confirm = prompt.yes?("Are you sure you want to update the date of the flight?")
+                    if confirm
+                        self.update_date
+                    end
+                }
+
+            end
+
+            confirm = prompt.yes?("Are you sure you want to cancel this reservation?")
+
+            
+            
+    end
     system "clear"
 end
