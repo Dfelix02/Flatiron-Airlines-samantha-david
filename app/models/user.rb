@@ -208,38 +208,30 @@ class User < ActiveRecord::Base
     end
 
     def update_reservation
+        prompt = TTY::Prompt.new
         if self.user_reservations == nil
             puts "You have no reservations."
             choice1= prompt.select("Options:") do |menu|
                 menu.choice "Back to Main Menu", -> {return}
+            end
         end
-
+        
+        binding.pry
         reservation = prompt.select("Which reservation would you like to update?", self.user_reservations)
+        
         reservation = reservation.split(" ")
         reservation_id = reservation[2]
         reservation_to_update = Reservation.find_by(id: reservation_id)
 
-        prompt.select("What would you like to update?") do |menu|
-            menu.choice "Destination", -> 
-            { 
-                confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
-                if confirm
-                    system "clear"
-                    self.update_destination
-                end
-            }
+        confirm = prompt.yes?("Are you sure you want to update the destination of the flight?")
+        if confirm
+            self.update_destination
         end
-
+        
         prompt.select("Would you like to make any other changes?") do |menu|
             menu.choice "Yes", -> {self.update_reservation}
-            menu.choice "No, take me to the main menu.", -> 
-            {
-                system "clear"
-                Plane.plane_animation
-                return            
-            }
-            end
-            
+            menu.choice "No, take me to the main menu.", -> {return}  
+        end  
     end
 
     def update_destination(reservation)
