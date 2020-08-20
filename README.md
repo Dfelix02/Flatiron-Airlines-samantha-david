@@ -20,7 +20,7 @@
     -You can cancel a reservation or return to the main menu from here.
 3. Cancel Reservations - Allows you cancel a reservation.
     -You can return to the main menu from here.
-4. Update Reservations - Allows you to update your reservation by canceling the selected reservation and making a new one.
+4. Update account info - Allows you to update your username, password, credit card information or return to the main menu.
 5. Exit - Allows you to log out and return to the login/register menu.
 
 
