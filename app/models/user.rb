@@ -76,10 +76,10 @@ class User < ActiveRecord::Base
             menu.choice "Enter your destination", -> { find_from_entering_destination(date) }
             menu.choice "Select from destinations", -> { find_from_destination_list(date) }
         end
-        system "clear"
     end
 
     def find_from_entering_destination(date)
+        system "clear"
         Ascii_imgs.plane
         Ascii_imgs.flatiron_banner
         prompt = TTY::Prompt.new
@@ -101,7 +101,6 @@ class User < ActiveRecord::Base
             puts "Sorry, there are no available flights on this day. Please try your search again."
             self.book_a_flight
         end
-        system "clear"
     end
 
     def find_from_destination_list(date)
