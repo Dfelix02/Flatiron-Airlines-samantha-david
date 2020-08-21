@@ -83,9 +83,9 @@ class User < ActiveRecord::Base
         Ascii_imgs.plane
         Ascii_imgs.flatiron_banner
         prompt = TTY::Prompt.new
-        destination = prompt.ask("Enter city, country")
+        destination = prompt.ask("Enter city, country:")
         destination_arr = destination.split(",")
-        city = destination_arr[0]
+        city = destination_arr[0].capitalize
         destination = Destination.find_by(city: city)
         Plane.plane_animation
         system "clear"
@@ -146,6 +146,7 @@ class User < ActiveRecord::Base
     end
 
     def confirm_and_book_flight(flight_id)
+
         prompt = TTY::Prompt.new
         Ascii_imgs.plane
         Ascii_imgs.flatiron_banner
